@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipes</title>
+    <link rel="stylesheet" href="css/adder.css">
+    <script type = 'module' src='../src/adder.js'></script>
+
+</head>
+
+<body>
+    <header>
+        <a href="adder.html">Add</a>
+        <a href="viewer.html">View</a>
+    </header>
+    <main>
+        <form>
+            <!--Name input-->
+            <label for='nameField'>Recipe Name</label>
+            <input type='text' id='nameField'>
+            <label for='nameField'>(Optional) Add an Image link</label>
+            <input type='text' id='imgLink'>
+            <!--ingredient input-->
+            <h2>Ingredients</h2>
+            <div id="ingred">
+                <ul id = 'ingredientList'>
+                    <!--this list will store all the ingredients and quantities the user added-->
+                </ul>
+                <label for='ingredName'>Add an ingredient</label>
+                <input type='text' id='ingredName'>
+                <label for='ingredQuantity'>Amount:</label>
+                <input type='text' id='ingredQuantity'>
+                <button id="addIngred">Add</button>
+                <button id="clearIngred">Clear List</button>
+
+            </div>
+
+            <h2>Instructions</h2>
+            <div id="instructions">
+                <ol id = 'instructList'>
+                    <!--This list stores all the recipe instructions, in order of when they were added.-->
+                </ol>
+                <textarea id='instructInput'></textarea>
+                <button id="addInstruct">Add</button>
+                <button id="clearInstruct">Clear List</button>
+            </div>
+        </form>
+
+        <div>
+            <button id="submitRecipe">Submit</button>
+            <div id="message">
+                <!--status message displayed here-->
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
