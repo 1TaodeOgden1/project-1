@@ -5,6 +5,7 @@ const index = fs.readFileSync(`${__dirname}/../client/adder.html`);
 const css = fs.readFileSync(`${__dirname}/../client/css/adder.css`);
 
 const getIndex = (request, response) => {
+  console.log(__dirname);
   response.writeHead(200, { 'Content-Type': 'text/html' });
   response.write(index);
   response.end();

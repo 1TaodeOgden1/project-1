@@ -51,7 +51,7 @@ const parseBody = (request, response, handler) => {
 
 // handlers for our POST requests
 const handlePOST = (request, response, parsedUrl) => {
-  if (parsedUrl.pathname === '/addUser') {
+  if (parsedUrl.pathname === '/addRecipe') {
     parseBody(request, response, jsonHandler.addUser);
   }
 };
@@ -69,9 +69,9 @@ const handleGET = (request, response, parsedUrl) => {
     case '/':
       htmlHandler.getIndex(request, response);
       break;
-    case '/getUsers':
-      jsonHandler.getUsers(request, response);
-      break;
+    case '/getRecipe':{
+      jsonHandler.getRecipes(request, response);
+    }
     case '/style.css':
       htmlHandler.getCSS(request, response);
       break;

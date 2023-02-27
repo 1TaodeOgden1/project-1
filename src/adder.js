@@ -92,6 +92,7 @@ function loadLists(event) {
   document.querySelector('#ingredientList').innerHTML = newHTML;
 }
 
+//send the recipe as a POST request to the server
 const addRecipe = async () => {
   const name = document.querySelector('#nameField').value;
   const imgLink = document.querySelector('#imgLink').value;
@@ -104,7 +105,7 @@ const addRecipe = async () => {
   };
 
   const response = await fetch(
-    action,
+    '/addRecipe',
     {
       method: 'POST',
       headers: {
@@ -139,6 +140,6 @@ const handleResponse = async (response) => {
 
   // If we have a message, display it.
   if (obj.message) {
-    content.innerHTML += `<p>${obj.message}</p>`;
+    message.innerHTML += `<p>${obj.message}</p>`;
   }
 };

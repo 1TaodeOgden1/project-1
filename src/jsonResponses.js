@@ -1,5 +1,5 @@
 // stores array of user objects
-const users = {};
+const recipes = {}; 
 
 /* taken from body parse demo */
 // function to respond with a json object
@@ -22,12 +22,10 @@ const notFound = (request, response) => {
   return respondJSON(request, response, 404, responseJSON);
 };
 
-/* borrowed from body parse example */
-
-// return user object as JSON
-const getUsers = (request, response) => {
+// returns the recipe as a raw JSON
+const getRecipes = (request, response) => {
   const responseJSON = {
-    users,
+    recipes,
   };
 
   return respondJSON(request, response, 200, responseJSON);
@@ -38,18 +36,13 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-// function to add a user from a POST body
-const addUser = (request, response, body) => {
-  // default json message
+const addRecipe = (request, response, body) => {
   const responseJSON = {
-    message: 'Name and age are both required.',
+    message: 'A form was missing / not filled!'
   };
 
-  // check to make sure we have both fields
-  // We might want more validation than just checking if they exist
-  // This could easily be abused with invalid types (such as booleans, numbers, etc)
-  // If either are missing, send back an error message as a 400 badRequest
-  if (!body.name || !body.age) {
+  //if a name is missing or no instructions were added
+  if(!body.name || !body.instructions){
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
@@ -57,33 +50,36 @@ const addUser = (request, response, body) => {
   // default status code to 204 updated
   let responseCode = 204;
 
-  // If the user doesn't exist yet
-  if (!users[body.name]) {
+  // If the recipe doesn't exist yet
+  if (!recipes[body.name]) {
     // Set the status code to 201 (created) and create an empty user
     responseCode = 201;
     users[body.name] = {};
   }
 
-  // add or update fields for this user name
-  users[body.name].name = body.name;
-  users[body.name].age = body.age;
+   // add or update fields for this recipe
+   recipes[body.name].name = body.name;
+   recipes[body.name].instructions = body.instructions;
+   recipes[body.name].imgLink = body.imgLink;
+   recipes[body.name].ingredients = body.ingredients; 
+ 
+   // if response is created, then set our created message
+   // and sent response with a message
+   if (responseCode === 201) {
+     responseJSON.message = 'Created Successfully';
+     return respondJSON(request, response, responseCode, responseJSON);
+   }
+   // 204 has an empty payload, just a success
+   // It cannot have a body, so we just send a 204 without a message
+   // 204 will not alter the browser in any way!!!
+   return respondJSONMeta(request, response, responseCode);
+}
 
-  // if response is created, then set our created message
-  // and sent response with a message
-  if (responseCode === 201) {
-    responseJSON.message = 'Created Successfully';
-    return respondJSON(request, response, responseCode, responseJSON);
-  }
-  // 204 has an empty payload, just a success
-  // It cannot have a body, so we just send a 204 without a message
-  // 204 will not alter the browser in any way!!!
-  return respondJSONMeta(request, response, responseCode);
-};
 
 module.exports = {
   notFound,
-  addUser,
-  getUsers,
+  addRecipe,
+  getRecipes,
   respondJSONMeta,
   respondJSON,
 };
