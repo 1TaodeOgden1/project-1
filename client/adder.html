@@ -6,24 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Recipes</title>
-    <link rel="stylesheet" href="css/adder.css">
-    <script src='/src/adder.js'></script>
-    
+    <link rel="stylesheet" href="/adder.css">
+    <script src='/adder.js'></script>
+
 
 </head>
 
 <body>
     <header>
-        <a href="adder.html">Add</a>
-        <a href="viewer.html">View</a>
+        <a href="/adder.html">Add</a>
+        <a href="/recipe_index.html">View Recipes</a>
     </header>
     <main>
         <form>
-            <!--Name input-->
+            <!--Recipe name input-->
             <label for='nameField'>Recipe Name</label>
             <input type='text' id='nameField'>
+            <!--User name input-->
+            <label for='userField'>(Optional) Author name</label>
+            <input type='text' id="userField">
             <label for='nameField'>(Optional) Add an Image link</label>
             <input type='text' id='imgLink'>
+
             <!--ingredient input-->
             <h2>Ingredients</h2>
             <div id="ingred">
@@ -36,7 +40,6 @@
                 <input type='text' id='ingredQuantity'>
                 <button id="addIngred">Add</button>
                 <button id="clearIngred">Clear List</button>
-
             </div>
 
             <h2>Instructions</h2>
@@ -51,7 +54,7 @@
         </form>
 
         <div>
-            <button id="submitRecipe" action = '/addRecipe'>Submit</button>
+            <button id="submitRecipe" action='/addRecipe'>Submit</button>
             <div id="message">
                 <!--status message displayed here-->
             </div>

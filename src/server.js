@@ -11,7 +11,7 @@ const jsonHandler = require('./jsonResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 /* borrowed from demo code */
-const parseBody = (request, response, handler) => {
+const parseBody = (request, response) => {
   // The request will come in in pieces. We will store those pieces in this
   // body array.
   const body = [];
@@ -41,63 +41,48 @@ const parseBody = (request, response, handler) => {
   // us data in X-WWW-FORM-URLENCODED format. If it was in JSON we could use JSON.parse.
   request.on('end', () => {
     const bodyString = Buffer.concat(body).toString();
-    const bodyParams = query.parse(bodyString);
+    const bodyParams = JSON.parse(bodyString);
 
     // Once we have the bodyParams object, we will call the handler function. We then
     // proceed much like we would with a GET request.
-    handler(request, response, bodyParams);
+    jsonHandler.addRecipe(request, response, bodyParams);
   });
 };
 
-// handlers for our POST requests
-const handlePOST = (request, response, parsedUrl) => {
-  if (parsedUrl.pathname === '/addRecipe') {
-    parseBody(request, response, jsonHandler.addUser);
-  }
-};
+const urlStruct = {
+  'GET': {
+    '/': htmlHandler.getAdder,
+    '/adder.html': htmlHandler.getAdder,
+    '/adder.css': htmlHandler.getAdderCSS,
+    '/adder.js': htmlHandler.getAdderJS,
+    '/recipe_index': htmlHandler.getIndex,
+    '/index.js': htmlHandler.getIndexJS,
+    '/index.css':htmlHandler.getIndexCSS, 
+    '/viewRecipe': htmlHandler.getRecipe,
+    '/viewer.js': htmlHandler.getRecipeJS,
+    '/viewer.css':htmlHandler.getRecipeCSS
 
-const handleHEAD = (request, response, parsedUrl) => {
-  if (parsedUrl.pathname === '/getUsers') {
-    jsonHandler.respondJSONMeta(request, response);
-  } else {
-    jsonHandler.notFound(request, response);
-  }
-};
-
-const handleGET = (request, response, parsedUrl) => {
-  switch (parsedUrl.pathname) {
-    case '/':
-      htmlHandler.getIndex(request, response);
-      break;
-    case '/getRecipe':{
-      jsonHandler.getRecipes(request, response);
-    }
-    case '/style.css':
-      htmlHandler.getCSS(request, response);
-      break;
-    default:
-      jsonHandler.notFound(request, response);
-      break;
-  }
+  },
+  'HEAD': {
+    
+  },
+  'POST': {
+    '/addRecipe': parseBody,
+  },
+  notFound: jsonHandler.notFound,
 };
 
 // function to handle requests
 const onRequest = (request, response) => {
   // first we have to parse information from the url
   const parsedUrl = url.parse(request.url);
+  const params = query.parse(parsedUrl.query);
 
   // key:value object to look up URL routes to specific functions
-  switch (request.method) {
-    case 'HEAD':
-      handleHEAD(request, response, parsedUrl);
-      break;
-    case 'POST':
-      handlePOST(request, response, parsedUrl);
-      break;
-    // handles get responses
-    default:
-      handleGET(request, response, parsedUrl);
-      break;
+  if (urlStruct[request.method][parsedUrl.pathname]) {
+    urlStruct[request.method][parsedUrl.pathname](request, response, params);
+  } else {
+    urlStruct.notFound(request, response, params);
   }
 };
 

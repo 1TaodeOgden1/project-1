@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Recipes</title>
+    <script src='/viewer.js'></script>
+    <link rel='stylesheet' href='/viewer.css'>
+    <title>Document</title>
 </head>
+
 <body>
     <header>
-
+        <a href="/adder.html">Add</a>
+        <a href="/viewer.html">View</a>
     </header>
+    <!--formats the recipe object and displays it-->
     <main>
+        <div id = 'content'>
+            <!--recipe header-->
+            <div id = 'recipeHeader'>
+                <h1 id = "recipeName">Recipe Name</h1>
+                <h2 id = "author"> Recipe Author</h2>
+            </div>
 
+         <!--recipe ingredients-->
+            <div id = "ingredients">
+                <h2>Ingredients</h2>
+                <ul>
+                    <!--put ingredients list here-->
+                </ul>
+            </div>
+
+            <!--recipe instructions-->
+            <div id = 'instructions'>
+                <h2>Steps</h2>
+                <ol>
+                    <!--put instructions here-->
+                </ol>
+            </div>
+        </div>
     </main>
     <footer>
-        
+        <!--comment section / form here-->
+        <h2>Comments</h2>
     </footer>
+
 </body>
+
 </html>

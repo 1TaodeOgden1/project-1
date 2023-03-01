@@ -1,5 +1,5 @@
 // stores array of user objects
-const recipes = {}; 
+const recipes = {};
 
 /* taken from body parse demo */
 // function to respond with a json object
@@ -38,11 +38,11 @@ const respondJSONMeta = (request, response, status) => {
 
 const addRecipe = (request, response, body) => {
   const responseJSON = {
-    message: 'A form was missing / not filled!'
+    message: 'A form was missing / not filled!',
   };
 
-  //if a name is missing or no instructions were added
-  if(!body.name || !body.instructions){
+  // if a name is missing or no instructions were added
+  if (!body.name || !body.instructions) {
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
@@ -54,32 +54,32 @@ const addRecipe = (request, response, body) => {
   if (!recipes[body.name]) {
     // Set the status code to 201 (created) and create an empty user
     responseCode = 201;
-    users[body.name] = {};
+    recipes[body.name] = {};
   }
 
-   // add or update fields for this recipe
-   recipes[body.name].name = body.name;
-   recipes[body.name].instructions = body.instructions;
-   recipes[body.name].imgLink = body.imgLink;
-   recipes[body.name].ingredients = body.ingredients; 
- 
-   // if response is created, then set our created message
-   // and sent response with a message
-   if (responseCode === 201) {
-     responseJSON.message = 'Created Successfully';
-     return respondJSON(request, response, responseCode, responseJSON);
-   }
-   // 204 has an empty payload, just a success
-   // It cannot have a body, so we just send a 204 without a message
-   // 204 will not alter the browser in any way!!!
-   return respondJSONMeta(request, response, responseCode);
-}
+  // add or update fields for this recipe
+  recipes[body.name].name = body.name;
+  recipes[body.name].instructions = body.instructions;
+  recipes[body.name].imgLink = body.imgLink;
+  recipes[body.name].ingredients = body.ingredients;
 
+  // if response is created, then set our created message
+  // and sent response with a message
+  if (responseCode === 201) {
+    responseJSON.message = 'Created Successfully';
+    console.log(JSON.stringify(recipes[body.name]));
+    return respondJSON(request, response, responseCode, responseJSON);
+  }
+  // 204 has an empty payload, just a success
+  // It cannot have a body, so we just send a 204 without a message
+  // 204 will not alter the browser in any way!!!
+  return respondJSONMeta(request, response, responseCode);
+};
 
 module.exports = {
   notFound,
   addRecipe,
   getRecipes,
   respondJSONMeta,
-  respondJSON,
+  respondJSON
 };

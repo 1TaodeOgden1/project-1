@@ -1,10 +1,6 @@
-const { padStart } = require('lodash');
-
 // stores saved ingredients and instruction steps, to be JSONified
-const ingredientList = []; // an array of {name: string , amount: string} objects
-const instructionList = []; // array of strings
-
-window.onload = init;
+let ingredientList = []; // an array of {name: string , amount: string} objects
+let instructionList = []; // array of strings
 
 const init = () => {
   const addIngredBtn = document.querySelector('#addIngred');
@@ -52,16 +48,17 @@ const init = () => {
 
   // create an object with data from the text fields and the arrays and send it to the server
   // then reset the form
-  submitBtn.addEventListener('click', (e) => {
+  submitBtn.addEventListener('click', (event) => {
     addRecipe();
 
     // clear all the forms
     instructionList = [];
     ingredientList = [];
-    loadLists();
+    loadLists(event);
 
     document.querySelector('#nameField').value = '';
     document.querySelector('#imgLink').value = '';
+    document.querySelector('userField').value = '';
   });
 
   // basically, every time a list is modified, we want to re-display
@@ -92,16 +89,18 @@ function loadLists(event) {
   document.querySelector('#ingredientList').innerHTML = newHTML;
 }
 
-//send the recipe as a POST request to the server
+// send the recipe as a POST request to the server
 const addRecipe = async () => {
   const name = document.querySelector('#nameField').value;
   const imgLink = document.querySelector('#imgLink').value;
+  const authorName = document.querySelector('#userField').value; 
 
   const recipeObj = {
     name,
+    authorName,
     imgLink,
-    ingredients: JSON.stringify(ingredientList),
-    instructions: JSON.stringify(instructionList),
+    ingredients: ingredientList,
+    instructions: instructionList,
   };
 
   const response = await fetch(
@@ -109,10 +108,10 @@ const addRecipe = async () => {
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-formurlencoded',
+        'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      body: recipeObj,
+      body: JSON.stringify(recipeObj),
     },
   );
 
@@ -143,3 +142,5 @@ const handleResponse = async (response) => {
     message.innerHTML += `<p>${obj.message}</p>`;
   }
 };
+
+window.onload = init;
