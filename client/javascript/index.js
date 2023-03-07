@@ -15,8 +15,9 @@ const loadRecipes = async () => {
     const params = {
         searchFilter
     }
+    
+
     //reset search params 
     //nameFilter.value = '';
 
-    
 }

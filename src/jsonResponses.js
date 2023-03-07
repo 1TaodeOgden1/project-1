@@ -67,7 +67,6 @@ const addRecipe = (request, response, body) => {
   // and sent response with a message
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';
-    console.log(JSON.stringify(recipes[body.name]));
     return respondJSON(request, response, responseCode, responseJSON);
   }
   // 204 has an empty payload, just a success
