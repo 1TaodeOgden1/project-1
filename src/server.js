@@ -50,23 +50,28 @@ const parseBody = (request, response) => {
 };
 
 const urlStruct = {
-  'GET': {
+  GET: {
     '/': htmlHandler.getAdder,
     '/adder.html': htmlHandler.getAdder,
     '/adder.css': htmlHandler.getAdderCSS,
     '/adder.js': htmlHandler.getAdderJS,
-    '/recipe_index': htmlHandler.getIndex,
+    '/recipe_index.html': htmlHandler.getIndex,
     '/index.js': htmlHandler.getIndexJS,
-    '/index.css':htmlHandler.getIndexCSS, 
+    '/index.css': htmlHandler.getIndexCSS,
     '/viewRecipe': htmlHandler.getRecipe,
     '/viewer.js': htmlHandler.getRecipeJS,
-    '/viewer.css':htmlHandler.getRecipeCSS
+    '/viewer.css': htmlHandler.getRecipeCSS,
+    // to grab data
+    '/getRecipeList': jsonHandler.getRecipeList,
+  },
+  HEAD: {
+    '/': jsonHandler.getAdderMeta,
+    '/adder.html': jsonHandler.getAdderMeta,
+    '/recipe_index.html': jsonHandler.getIndexMeta,
+    '/viewRecipe': jsonHandler.getViewerMeta,
 
   },
-  'HEAD': {
-    
-  },
-  'POST': {
+  POST: {
     '/addRecipe': parseBody,
   },
   notFound: jsonHandler.notFound,

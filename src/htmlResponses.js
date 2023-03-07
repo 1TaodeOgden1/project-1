@@ -27,12 +27,11 @@ const getIndex = (request, response) => {
 
 const getIndexCSS = (request, response) => {
   serveFile(response, recipeIndexCSS, 'text/css');
-}
+};
 
 const getIndexJS = (request, response) => {
   serveFile(response, recipeIndexJS, 'application/json');
-}
-
+};
 
 const getRecipe = (request, response) => {
   serveFile(response, recipeViewer, 'text/html');
@@ -40,11 +39,11 @@ const getRecipe = (request, response) => {
 
 const getRecipeCSS = (request, response) => {
   serveFile(response, recipeViewerCSS, 'text/css');
-}
+};
 
 const getRecipeJS = (request, response) => {
   serveFile(response, recipeViewerJS, 'application/json');
-}
+};
 const getAdder = (request, response) => {
   serveFile(response, adder, 'text/html');
 };
@@ -57,14 +56,12 @@ const getAdderCSS = (request, response) => {
   serveFile(response, adderCSS, 'text/css');
 };
 
-
-
 module.exports = {
   getIndex,
   getIndexJS,
   getIndexCSS,
   getRecipe,
-  getRecipeCSS, 
+  getRecipeCSS,
   getRecipeJS,
   getAdder,
   getAdderJS,

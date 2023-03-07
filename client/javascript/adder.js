@@ -58,7 +58,7 @@ const init = () => {
 
     document.querySelector('#nameField').value = '';
     document.querySelector('#imgLink').value = '';
-    document.querySelector('userField').value = '';
+    document.querySelector('#userField').value = '';
   });
 
   // basically, every time a list is modified, we want to re-display
@@ -128,6 +128,8 @@ const handleResponse = async (response) => {
     case 201: // created
       message.innerHTML = '<b>Successfully added!</b>';
       break;
+    case 204: //recipe updated
+    message.innerHTML = '<b>Your recipe was updated!<b>';
     default: // any other status code
       message.innerHTML = 'Error!';
       break;

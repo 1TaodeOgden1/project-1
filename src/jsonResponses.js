@@ -22,27 +22,53 @@ const notFound = (request, response) => {
   return respondJSON(request, response, 404, responseJSON);
 };
 
-// returns the recipe as a raw JSON
-const getRecipes = (request, response) => {
-  const responseJSON = {
+// returns objects in the list that fulfill the search params
+const getRecipeList = (request, response, params) => {
+  console.log(recipes);
+  let recipeJSON = {
     recipes,
   };
 
-  return respondJSON(request, response, 200, responseJSON);
+  // filter out recipes that don't have matching names
+  if (params[params.nameFilter]) {
+    recipeJSON = {
+      recipes,
+    };
+  }
+
+  return respondJSON(request, response, 200, recipeJSON);
 };
 
+// For HEAD request functionality; grabs metadata for the three main pages
 const respondJSONMeta = (request, response, status) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
   response.end();
 };
 
+const getAdderMeta = (request, response) => respondJSONMeta(request, response, 200);
+
+const getIndexMeta = (request, response) => respondJSONMeta(request, response, 200);
+
+const getViewerMeta = (request, response) => respondJSONMeta(request, response, 200);
+
 const addRecipe = (request, response, body) => {
   const responseJSON = {
-    message: 'A form was missing / not filled!',
+    message: '',
   };
 
-  // if a name is missing or no instructions were added
-  if (!body.name || !body.instructions) {
+  // if a name, a list of ingredients or instructions is not provided
+  if (!body.name || !body.instructions || !body.ingredients) {
+    // shows the user what fields they haven't filled
+    if (!body.name) {
+      responseJSON.message += 'Recipe name not provided!';
+    }
+    if (body.ingredients.length === 0) {
+      responseJSON.message += '<br>A list of ingredients was not provided!';
+    }
+    if (body.instructions.length === 0) {
+      responseJSON.message += '<br>A list of instructions was not provided!';
+    }
+
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
@@ -78,7 +104,10 @@ const addRecipe = (request, response, body) => {
 module.exports = {
   notFound,
   addRecipe,
-  getRecipes,
+  getRecipeList,
   respondJSONMeta,
-  respondJSON
+  getAdderMeta,
+  getIndexMeta,
+  getViewerMeta,
+  respondJSON,
 };
