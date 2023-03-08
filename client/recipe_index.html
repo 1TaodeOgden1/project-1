@@ -14,13 +14,16 @@
     <header>
         <a href="/adder.html">Add</a>
         <a href="/viewer.html">View</a>
-        <h2 id = 'message'></h2>
+        <h2 id='message'></h2>
     </header>
     <main>
         <!--search a specific recipe-->
         <form id="searchBar" action='/getRecipe'>
-            <label for="searchName"></label>
-            <input type= "text" id = 'searchName' placeholder='Search for something specific...'>
+            <div>
+                <input type="text" id='searchName' placeholder='Search for something specific...'>
+                <button id="search">Search</button>
+            </div>
+
             </div>
             <div id="results">
                 <!--results here-->

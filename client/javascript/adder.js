@@ -93,7 +93,7 @@ function loadLists(event) {
 const addRecipe = async () => {
   const name = document.querySelector('#nameField').value;
   const imgLink = document.querySelector('#imgLink').value;
-  const authorName = document.querySelector('#userField').value; 
+  const authorName = document.querySelector('#userField').value;
 
   const recipeObj = {
     name,
@@ -129,7 +129,7 @@ const handleResponse = async (response) => {
       message.innerHTML = '<b>Successfully added!</b>';
       break;
     case 204: //recipe updated
-    message.innerHTML = '<b>Your recipe was updated!<b>';
+      message.innerHTML = '<b>Your recipe was updated!<b>';
     default: // any other status code
       message.innerHTML = 'Error!';
       break;

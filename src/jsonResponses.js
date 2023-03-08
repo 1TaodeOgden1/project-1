@@ -1,5 +1,5 @@
 // stores array of user objects
-const recipes = {};
+const recipes = { eggs: 'eggs' };
 
 /* taken from body parse demo */
 // function to respond with a json object
@@ -24,19 +24,25 @@ const notFound = (request, response) => {
 
 // returns objects in the list that fulfill the search params
 const getRecipeList = (request, response, params) => {
-  console.log(recipes);
-  let recipeJSON = {
-    recipes,
+  const responseJSON = {
+    message: '',
   };
 
   // filter out recipes that don't have matching names
-  if (params[params.nameFilter]) {
-    recipeJSON = {
-      recipes,
-    };
-  }
+  // if (params.name != '') {
+  //   const filteredRecipes = {};
 
-  return respondJSON(request, response, 200, recipeJSON);
+  //   for (const r in recipes) {
+  //     console.log(r);
+  //     // if (recipes[r].name.includes(params.name)) {
+  //     //   //copy recipe over to filteredRecipes
+  //     //   filteredRecipes[r] = recipes[r];
+  //     // }
+  //   }
+
+  // }
+
+  return respondJSON(request, response, 204, responseJSON);
 };
 
 // For HEAD request functionality; grabs metadata for the three main pages
