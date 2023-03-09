@@ -49,6 +49,8 @@ const parseBody = (request, response) => {
   });
 };
 
+
+//URL object to store all our possible request urls and their methods. 
 const urlStruct = {
   GET: {
     '/': htmlHandler.getAdder,

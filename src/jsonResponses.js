@@ -4,7 +4,6 @@ const recipes = {
   'Chocolate Chip Cookies': {
     name: 'Chocolate Chip Cookies',
     authorName: 'Taode Ogden',
-    imgLink: '',
     ingredients: [
       {
         name: 'unsalted butter',
@@ -75,13 +74,23 @@ const getRecipeList = (request, response, params) => {
   if (params.name !== '') {
     const filteredRecipes = {};
 
-    for (const r of Object.keys(recipes)) {
-      if (recipes[r].name.toLowerCase().includes(params.name)) {
+    for (let i = 0; i++; i < Object.keys(recipes).length) {
+      // check if the recipe's name contains the searched name
+      const recipeName = recipes[Object.keys(recipes)[i]].name;
+      // the search param is not case sensitive
+      if (recipeName.toLowerCase().includes(params.name)) {
         // copy recipe over to filteredRecipes
         // https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
-        filteredRecipes[r] = JSON.parse(JSON.stringify(recipes[r]));
+        filteredRecipes[recipeName] = JSON.parse(JSON.stringify(recipes[recipeName]));
       }
     }
+    // code above is equivalent to:
+    // for (const r of Object.keys(recipes)) {
+    //   if (recipes[r].name.toLowerCase().includes(params.name)) {
+
+    //     filteredRecipes[r] = JSON.parse(JSON.stringify(recipes[r]));
+    //   }
+    // }
 
     responseJSON.recipes = filteredRecipes;
   } else {
@@ -93,6 +102,9 @@ const getRecipeList = (request, response, params) => {
   return respondJSON(request, response, 200, responseJSON);
 };
 
+
+//adds a new recipe JSON object to the server
+//a modified version of the addUser method from the bodyparse demo
 const getRecipe = (request, response, params) => {
   // JSON object to send
   const responseJSON = {
@@ -126,7 +138,7 @@ const addRecipe = (request, response, body) => {
   // if a name, a list of ingredients or instructions is not provided
   if (!body.name || !body.instructions || !body.ingredients) {
     // shows the user what fields they haven't filled
-    if (!body.name) {
+    if (body.name === '') {
       responseJSON.message += 'Recipe name not provided!';
     }
     if (body.ingredients.length === 0) {
@@ -142,7 +154,7 @@ const addRecipe = (request, response, body) => {
 
   // default status code to 204 updated
   let responseCode = 204;
-  
+
   // If the recipe doesn't exist yet
   if (!recipes[body.name]) {
     // Set the status code to 201 (created) and create an empty user
@@ -154,9 +166,8 @@ const addRecipe = (request, response, body) => {
   recipes[body.name].name = body.name;
   recipes[body.name].authorName = body.authorName;
   recipes[body.name].instructions = body.instructions;
-  recipes[body.name].imgLink = body.imgLink;
   recipes[body.name].ingredients = body.ingredients;
-  recipes[body.name].linkname  = body.linkname;
+  recipes[body.name].linkname = body.linkname;
 
   // if response is created, then set our created message
   // and sent response with a message
@@ -164,6 +175,8 @@ const addRecipe = (request, response, body) => {
     responseJSON.message = 'Created Successfully';
     return respondJSON(request, response, responseCode, responseJSON);
   }
+
+  /*Borrowed from class code*/ 
   // 204 has an empty payload, just a success
   // It cannot have a body, so we just send a 204 without a message
   // 204 will not alter the browser in any way!!!

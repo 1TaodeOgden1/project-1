@@ -64,7 +64,6 @@ const init = () => {
     loadLists(event);
 
     document.querySelector('#nameField').value = '';
-    document.querySelector('#imgLink').value = '';
     document.querySelector('#userField').value = '';
   });
 
@@ -99,13 +98,11 @@ function loadLists(event) {
 // send the recipe as a POST request to the server
 const addRecipe = async () => {
   const name = document.querySelector('#nameField').value;
-  const imgLink = document.querySelector('#imgLink').value;
   const authorName = document.querySelector('#userField').value;
 
   const recipeObj = {
     name,
     authorName,
-    imgLink,
     ingredients: ingredientList,
     instructions: instructionList,
     linkname: name.replace(' ', '+') //needed for part of the 
