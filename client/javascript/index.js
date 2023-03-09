@@ -3,11 +3,8 @@ const recipes = [];
 //then filter the results via the params 
 //no params present = get all recipes
 const loadRecipes = async () => {
-    const nameFilter = document.querySelector('#searchName').value;
-    const params = {
-        //search isn't case sensitive
-        nameFilter: nameFilter.toLowerCase()
-    }
+    //search isn't case sensitive
+    const nameFilter = document.querySelector('#searchName').value.toLowerCase();
     //grabs a JSON object with all recipes with the requested name 
     const response = await fetch(
         //send in search params as part of the object 
@@ -19,18 +16,13 @@ const loadRecipes = async () => {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             },
-            params: params
         }
     );
-
-    console.log(response.json());
-
     //reset search params 
     nameFilter.value = '';
     
     //notifies user of the results
     handleSearch(response);
-
 }
 
 //set up event handlers, plus display all loaded recipes
@@ -55,9 +47,20 @@ const handleSearch = async (response) => {
     // Parse the response to json.
     const obj = await response.json();
 
+    let newHTML = '';
+    for (let r of Object.keys(obj.recipes)) {
+        newHTML += `<div>
+        <a href = '/viewRecipe?name=${obj.recipes[r].linkname}'>${obj.recipes[r].name}</a>
+        <p>by ${obj.recipes[r].authorName}</p>
+        <div>
+      `;
+    }
+
+    resultsDiv.innerHTML = newHTML;
+
     // If we have a message, display it.
     if (obj.message) {
-        message.innerHTML += `<p>${obj.message}</p>`;
+        message.innerHTML = `<p>${obj.message}</p>`;
     }
 }
 

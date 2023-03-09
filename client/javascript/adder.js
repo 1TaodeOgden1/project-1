@@ -11,12 +11,12 @@ const init = () => {
 
   // clears the list of added ingredients
   clrIngredBtn.addEventListener('click', () => {
-    document.querySelector('#ingred').innerHTML = '<ul></ul>';
+    ingredientList = [];
   });
 
   // clears the list of added instructions
   clrInstructBtn.addEventListener('click', () => {
-    document.querySelector('#instructions ol').innerHTML = '<ol></ol>';
+    instructionList = [];
   });
 
   // adds {name: string , amount: string} object with the two ingredient form fields.
@@ -24,12 +24,16 @@ const init = () => {
     const ingredName = document.querySelector('#ingredName');
     const ingredQuantity = document.querySelector('#ingredQuantity');
 
-    ingredientList.push(
-      {
-        name: ingredName.value,
-        amount: ingredQuantity.value,
-      },
-    );
+    //user must have inputted values
+    if(ingredName.value && ingredQuantity.value){
+      ingredientList.push(
+        {
+          name: ingredName.value,
+          amount: ingredQuantity.value,
+        },
+      );
+    }
+   
 
     // clear text fields
     ingredName.value = '';
@@ -39,8 +43,11 @@ const init = () => {
   // adds a new instruction step to the recipe draft
   addInstructBtn.addEventListener('click', () => {
     const step = document.querySelector('#instructInput');
-
-    instructionList.push(step.value);
+    //do not add empty steps
+    if(step.value){
+      instructionList.push(step.value);
+    }
+ 
 
     // clear text fields
     step.value = '';
@@ -64,9 +71,9 @@ const init = () => {
   // basically, every time a list is modified, we want to re-display
   // that change to the user
   addIngredBtn.addEventListener('click', loadLists);
-  // clrIngredBtn.addEventListener('click', loadLists);
+  clrIngredBtn.addEventListener('click', loadLists);
   addInstructBtn.addEventListener('click', loadLists);
-  // clrInstructBtn.addEventListener('click', loadLists);
+  clrInstructBtn.addEventListener('click', loadLists);
 };
 
 // displays currently stored ingredients & instructions for the recipe draft
@@ -101,6 +108,7 @@ const addRecipe = async () => {
     imgLink,
     ingredients: ingredientList,
     instructions: instructionList,
+    linkname: name.replace(' ', '+') //needed for part of the 
   };
 
   const response = await fetch(
@@ -119,6 +127,7 @@ const addRecipe = async () => {
 };
 
 // outputs the response status message to the bottom of the page
+//displays found results
 const handleResponse = async (response) => {
   // Grab the div
   const message = document.querySelector('#message');
@@ -138,7 +147,6 @@ const handleResponse = async (response) => {
   // Parse the response to json. This works because we know the server always
   // sends back json. Await because .json() is an async function.
   const obj = await response.json();
-
   // If we have a message, display it.
   if (obj.message) {
     message.innerHTML += `<p>${obj.message}</p>`;

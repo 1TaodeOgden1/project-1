@@ -30,10 +30,10 @@ const getIndexCSS = (request, response) => {
 };
 
 const getIndexJS = (request, response) => {
-  serveFile(response, recipeIndexJS, 'application/json');
+  serveFile(response, recipeIndexJS, 'application/javascript');
 };
 
-const getRecipe = (request, response) => {
+const viewRecipe = async (request, response) => {
   serveFile(response, recipeViewer, 'text/html');
 };
 
@@ -42,7 +42,7 @@ const getRecipeCSS = (request, response) => {
 };
 
 const getRecipeJS = (request, response) => {
-  serveFile(response, recipeViewerJS, 'application/json');
+  serveFile(response, recipeViewerJS, 'application/javascript');
 };
 const getAdder = (request, response) => {
   serveFile(response, adder, 'text/html');
@@ -60,7 +60,7 @@ module.exports = {
   getIndex,
   getIndexJS,
   getIndexCSS,
-  getRecipe,
+  viewRecipe,
   getRecipeCSS,
   getRecipeJS,
   getAdder,

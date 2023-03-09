@@ -1,5 +1,47 @@
-// stores array of user objects
-const recipes = { eggs: 'eggs' };
+// stores array of recipe objects, with the properties listed below
+const recipes = {
+  // Sample recipe
+  'Chocolate Chip Cookies': {
+    name: 'Chocolate Chip Cookies',
+    authorName: 'Taode Ogden',
+    imgLink: '',
+    ingredients: [
+      {
+        name: 'unsalted butter',
+        amount: '3 tablespoons',
+      },
+      {
+        name: 'semisweet chocolate',
+        amount: '6 ounces',
+      },
+      {
+        name: 'large eggs, at room temperature, yolks and whites separated',
+        amount: '3',
+      },
+      {
+        name: 'cream of tartar',
+        amount: '½ teaspoon',
+      },
+      {
+        name: 'sugar',
+        amount: '¼ cup',
+      },
+      {
+        name: 'heavy cream, cold',
+        amount: '1/2 cup',
+      },
+      {
+        name: 'vanilla extract',
+        amount: '½ teaspoon',
+      }],
+    instructions: [
+      'Place the butter in a medium microwave-safe bowl. Break the chocolate into small pieces directly into the bowl. Microwave it in 20-second intervals, stirring between each bout of heat, until the chocolate is about 75% melted. Stir, allowing the residual heat in the bowl to melt the chocolate completely. (Alternatively, place the chocolate and butter in a heatproof bowl and place over a saucepan containing about 1 inch of barely simmering water. Stir with a wooden spoon until the chocolate is melted and the mixture is smooth.) Let the mixture cool for a few minutes, then whisk in the egg yolks one at a time, mixing until smooth after each addition. Set aside.',
+      "In another bowl, beat the heavy cream on medium-high speed until it begins to thicken up. Add the remaining 2 tablespoons of sugar and the vanilla and continue beating until the cream holds medium peaks (when you lift the beaters or whisk out of the bowl, the peaks will slightly droop down, but they won't lose their shape entirely). Fold the whipped cream into the chocolate mixture. Be sure it is fully incorporated but don't mix any more than necessary. Divide the mousse between 6 individual glasses, cover, and chill until set, at least 2 hours.",
+      'Up to a few hours before serving, whip the cream until it begins to thicken up. Add the sugar and whip to medium peaks. Dollop the whipped cream over the mousse and top with chocolate shavings.',
+    ],
+    linkname: 'Chocolate+Chip+Cookies',
+  },
+};
 
 /* taken from body parse demo */
 // function to respond with a json object
@@ -24,25 +66,44 @@ const notFound = (request, response) => {
 
 // returns objects in the list that fulfill the search params
 const getRecipeList = (request, response, params) => {
+  // JSON object to send
   const responseJSON = {
-    message: '',
+
   };
 
   // filter out recipes that don't have matching names
-  // if (params.name != '') {
-  //   const filteredRecipes = {};
+  if (params.name !== '') {
+    const filteredRecipes = {};
 
-  //   for (const r in recipes) {
-  //     console.log(r);
-  //     // if (recipes[r].name.includes(params.name)) {
-  //     //   //copy recipe over to filteredRecipes
-  //     //   filteredRecipes[r] = recipes[r];
-  //     // }
-  //   }
+    for (const r of Object.keys(recipes)) {
+      if (recipes[r].name.toLowerCase().includes(params.name)) {
+        // copy recipe over to filteredRecipes
+        // https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
+        filteredRecipes[r] = JSON.parse(JSON.stringify(recipes[r]));
+      }
+    }
 
-  // }
+    responseJSON.recipes = filteredRecipes;
+  } else {
+    // no search params; send all recipes by default
+    responseJSON.recipes = recipes;
+  }
 
-  return respondJSON(request, response, 204, responseJSON);
+  responseJSON.message = `${Object.keys(responseJSON.recipes).length} recipes found.`;
+  return respondJSON(request, response, 200, responseJSON);
+};
+
+const getRecipe = (request, response, params) => {
+  // JSON object to send
+  const responseJSON = {
+    message: 'recipe retrieved.',
+    id: 'found',
+  };
+
+  // convert the link name to find the key for the recipe
+  responseJSON.recipe = recipes[params.name.replace('+', ' ')];
+
+  return respondJSON(request, response, 200, responseJSON);
 };
 
 // For HEAD request functionality; grabs metadata for the three main pages
@@ -81,7 +142,7 @@ const addRecipe = (request, response, body) => {
 
   // default status code to 204 updated
   let responseCode = 204;
-
+  
   // If the recipe doesn't exist yet
   if (!recipes[body.name]) {
     // Set the status code to 201 (created) and create an empty user
@@ -91,9 +152,11 @@ const addRecipe = (request, response, body) => {
 
   // add or update fields for this recipe
   recipes[body.name].name = body.name;
+  recipes[body.name].authorName = body.authorName;
   recipes[body.name].instructions = body.instructions;
   recipes[body.name].imgLink = body.imgLink;
   recipes[body.name].ingredients = body.ingredients;
+  recipes[body.name].linkname  = body.linkname;
 
   // if response is created, then set our created message
   // and sent response with a message
@@ -116,4 +179,5 @@ module.exports = {
   getIndexMeta,
   getViewerMeta,
   respondJSON,
+  getRecipe,
 };

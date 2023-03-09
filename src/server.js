@@ -58,11 +58,12 @@ const urlStruct = {
     '/recipe_index.html': htmlHandler.getIndex,
     '/index.js': htmlHandler.getIndexJS,
     '/index.css': htmlHandler.getIndexCSS,
-    '/viewRecipe': htmlHandler.getRecipe,
+    '/viewRecipe': htmlHandler.viewRecipe,
     '/viewer.js': htmlHandler.getRecipeJS,
     '/viewer.css': htmlHandler.getRecipeCSS,
     // to grab data
     '/getRecipeList': jsonHandler.getRecipeList,
+    '/getRecipe': jsonHandler.getRecipe,
   },
   HEAD: {
     '/': jsonHandler.getAdderMeta,
