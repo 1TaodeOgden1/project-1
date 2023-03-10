@@ -6,18 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Recipes</title>
-    <link rel="stylesheet" href="/adder.css">
+    <link rel="stylesheet" href="css/adder.css">
     <script src='/adder.js'></script>
+
+    <!--imported fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+
 
 
 </head>
 
 <body>
-    <header>
+    <nav>
         <a href="/adder.html">Add</a>
         <a href="/recipe_index.html">View Recipes</a>
-    </header>
+    </nav>
     <main>
+
+        <div id='info'>
+            <div>
+                <h1 style>Recipe Book</h1>
+                <h3>A place to store & share your favorite recipes!</h3>
+                <p>Add your recipe via the form below, then share it when you're done.</p>
+                <p>See others' submissions via 'View Recipes'!</p>
+            </div>
+            <img src = "/chef-hat.png" alt="A png of a chef's hat">
+ 
+            
+        </div>
         <form>
             <!--Recipe name input-->
             <label for='nameField'>Recipe Name</label>
@@ -35,8 +57,11 @@
                 <input type='text' id='ingredName'>
                 <label for='ingredQuantity'>Amount:</label>
                 <input type='text' id='ingredQuantity'>
-                <button id="addIngred">Add</button>
-                <button id="clearIngred">Clear List</button>
+                <div class='controlDiv'>
+                    <button id="addIngred">Add</button>
+                    <button id="clearIngred">Clear List</button>
+                </div>
+
             </div>
 
             <h2>Instructions</h2>
@@ -44,18 +69,21 @@
                 <ol id='instructList'>
                     <!--This list stores all the recipe instructions, in order of when they were added.-->
                 </ol>
-                <textarea id='instructInput'></textarea>
-                <button id="addInstruct">Add</button>
-                <button id="clearInstruct">Clear List</button>
+                <textarea id='instructInput' placeholder="Type in the next step of instructions here."></textarea>
+                <div class='controlDiv'>
+                    <button id="addInstruct">Add</button>
+                    <button id="clearInstruct">Clear List</button>
+                </div>
+
             </div>
         </form>
-
-        <div>
-            <button id="submitRecipe" action='/addRecipe'>Submit</button>
-            <div id="message">
-                <!--status message displayed here-->
-            </div>
+        <div id="message">
+            <!--status message displayed here-->
         </div>
+        <div id = "submitDiv">
+            <button id="submitRecipe" action='/addRecipe'>Submit</button>
+        </div>
+      
     </main>
     <footer>
 

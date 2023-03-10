@@ -49,8 +49,7 @@ const parseBody = (request, response) => {
   });
 };
 
-
-//URL object to store all our possible request urls and their methods. 
+// URL object to store all our possible request urls and their methods.
 const urlStruct = {
   GET: {
     '/': htmlHandler.getAdder,
@@ -63,6 +62,8 @@ const urlStruct = {
     '/viewRecipe': htmlHandler.viewRecipe,
     '/viewer.js': htmlHandler.getRecipeJS,
     '/viewer.css': htmlHandler.getRecipeCSS,
+    '/ktchn_background.jpg': htmlHandler.getKcthnBackground,
+    '/chef-hat.png': htmlHandler.getHatImage,
     // to grab data
     '/getRecipeList': jsonHandler.getRecipeList,
     '/getRecipe': jsonHandler.getRecipe,

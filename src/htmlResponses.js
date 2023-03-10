@@ -13,6 +13,9 @@ const recipeIndex = fs.readFileSync(`${__dirname}/../client/recipe_index.html`);
 const recipeIndexJS = fs.readFileSync(`${__dirname}/../client/javascript/index.js`);
 const recipeIndexCSS = fs.readFileSync(`${__dirname}/../client/css/index.css`);
 
+const ktchnBackground = fs.readFileSync(`${__dirname}/../client/media/ktchn_background.jpg`);
+const chefHat = fs.readFileSync(`${__dirname}/../client/media/chef-hat.png`);
+
 /* from demo code */
 // A simple helper function for serving up static files
 const serveFile = (response, file, contentType) => {
@@ -20,6 +23,14 @@ const serveFile = (response, file, contentType) => {
   response.write(file);
   response.end();
 };
+
+const getHatImage = (request, response) => {
+  serveFile(response, chefHat, 'image/png');
+}
+
+const getKcthnBackground = (request, response) => {
+  serveFile(response, ktchnBackground, 'image/jpg');
+}
 
 const getIndex = (request, response) => {
   serveFile(response, recipeIndex, 'text/html');
@@ -66,4 +77,6 @@ module.exports = {
   getAdder,
   getAdderJS,
   getAdderCSS,
+  getHatImage,
+  getKcthnBackground
 };

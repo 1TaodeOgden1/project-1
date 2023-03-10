@@ -102,9 +102,8 @@ const getRecipeList = (request, response, params) => {
   return respondJSON(request, response, 200, responseJSON);
 };
 
-
-//adds a new recipe JSON object to the server
-//a modified version of the addUser method from the bodyparse demo
+// adds a new recipe JSON object to the server
+// a modified version of the addUser method from the bodyparse demo
 const getRecipe = (request, response, params) => {
   // JSON object to send
   const responseJSON = {
@@ -176,7 +175,7 @@ const addRecipe = (request, response, body) => {
     return respondJSON(request, response, responseCode, responseJSON);
   }
 
-  /*Borrowed from class code*/ 
+  /* Borrowed from class code */
   // 204 has an empty payload, just a success
   // It cannot have a body, so we just send a 204 without a message
   // 204 will not alter the browser in any way!!!

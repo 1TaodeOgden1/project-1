@@ -6,21 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src='/index.js'></script>
-    <link rel='stylesheet' href='/index.css'>
+    <link rel='stylesheet' href='css/index.css'>
+
+     <!--imported fonts-->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+ 
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+
     <title>View Recipes</title>
 </head>
 
 <body>
-    <header>
+    <nav>
         <a href="/adder.html">Add</a>
-        <a href="/recipe_index.html">View</a>
+        <a href="/recipe_index.html">View Recipes</a>
         <h2 id='message'></h2>
-    </header>
+    </nav>
     <main>
         <!--search a specific recipe-->
         <form id="searchBar" action='/getRecipe'>
             <div>
-                <input type="text" id='searchName' placeholder='Search for something specific...'>
+                <input type="text" id='searchName' placeholder='Search for something specific...' value = "Cookies">
                 <button id="search">Search</button>
             </div>
 

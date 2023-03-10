@@ -1,7 +1,42 @@
-header {
-    background-color: bisque;
+nav {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 0;
+}
+
+nav a {
+    background-color: maroon;
+    padding: 10px;
+    margin: 5px;
+    margin-bottom: 0px;
+    border-radius: 8% 8% 0 0;
+    color: whitesmoke;
+    font-family: 'Patrick Hand';
+    font-size: large;
+    min-width: 50px;
 }
 
 main {
-    background-color: tan;
+    background-color: rgba(255, 255, 255, .7);
+    max-width: 800px;
+    border-radius: 2%;
+    box-shadow: 2px 1px 1px 2px black;
+    padding: 20px;
+}
+
+
+p {
+    font-size: large;
+}
+
+a:hover {
+    background-color: darkblue;
+}
+
+/*background image */
+body {
+    background-image: url('../media/ktchn_background.jpg');
+    background-repeat: repeat;
+    margin: 0;
+    padding: 0;
 }

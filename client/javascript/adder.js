@@ -143,11 +143,15 @@ const handleResponse = async (response) => {
 
   // Parse the response to json. This works because we know the server always
   // sends back json. Await because .json() is an async function.
-  const obj = await response.json();
-  // If we have a message, display it.
-  if (obj.message) {
-    message.innerHTML += `<p>${obj.message}</p>`;
+  //204 reponses do not have a body attached, so avoid showing their contents. 
+  if(response.status != 204){
+    const obj = await response.json();
+    // If we have a message, display it.
+    if (obj.message) {
+      message.innerHTML += `<p>${obj.message}</p>`;
+    }
   }
+
 };
 
 window.onload = init;
