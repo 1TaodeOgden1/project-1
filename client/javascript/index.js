@@ -50,9 +50,9 @@ const handleSearch = async (response) => {
     let newHTML = '';
     for (let r of Object.keys(obj.recipes)) {
         newHTML += `<div>
-        <a href = '/viewRecipe?name=${obj.recipes[r].linkname}'>${obj.recipes[r].name}</a>
+        <a href = '/viewRecipe?name=${obj.recipes[r].linkname}'><h3>${obj.recipes[r].name}</h3></a>
         <p>by ${obj.recipes[r].authorName}</p>
-        <div>
+        </div>
       `;
     }
 

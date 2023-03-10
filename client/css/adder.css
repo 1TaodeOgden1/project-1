@@ -75,6 +75,7 @@ h3,
 
 .controlDiv button {
     min-width: 100px;
+    background-color: cadetblue;
 
 }
 
@@ -90,8 +91,6 @@ h3,
 }
 
 #submitRecipe:hover {
- 
-   
     background-color: green;
 }
 
@@ -107,7 +106,7 @@ input {
 }
 
 main {
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(255, 255, 255, 0.9);
     max-width: 800px;
     border-radius: 2%;
     box-shadow: 2px 1px 1px 2px black;

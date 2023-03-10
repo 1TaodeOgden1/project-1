@@ -17,11 +17,12 @@ nav a {
 }
 
 main {
-    background-color: rgba(255, 255, 255, .7);
+    background-color: rgba(255, 255, 255, .9);
     max-width: 800px;
     border-radius: 2%;
     box-shadow: 2px 1px 1px 2px black;
     padding: 20px;
+    min-height: 800px;
 }
 
 
@@ -29,14 +30,50 @@ p {
     font-size: large;
 }
 
-a:hover {
-    background-color: darkblue;
-}
-
 /*background image */
 body {
-    background-image: url('../media/ktchn_background.jpg');
+    background-image: url('/ktchn_background.jpg');
     background-repeat: repeat;
     margin: 0;
     padding: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Jost', sans-serif;
+}
+
+p {
+    font-family: 'Patrick Hand';
+}
+
+/*recipe list formatting*/
+#results div {
+    display: flex;
+    justify-content: space-between;
+    background-color: tan;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px 2px grey;
+}
+
+/*search bar styling*/
+input {
+    font-size: 18px;
+    width: 400px;
+    height: 30px;
+}
+
+#search {
+    width: 100px;
+    height: 30px;
+    padding: auto;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#search:hover {
+    background-color: green;
 }

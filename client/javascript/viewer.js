@@ -31,7 +31,7 @@ const handleRecipe = async (response) => {
     console.log(obj);
     
     document.querySelector('#recipeName').textContent = obj.recipe.name; 
-    document.querySelector('#author').textContent = obj.recipe.authorName; 
+    document.querySelector('#author').textContent = `Written by ${obj.recipe.authorName}`;
     
     //build a new HTML string as we iterate thru both lists
     const ingredList = document.querySelector('#ingredients ul');

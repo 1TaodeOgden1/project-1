@@ -132,12 +132,12 @@ const handleResponse = async (response) => {
   // Based on the status code, display something
   switch (response.status) {
     case 201: // created
-      message.innerHTML = '<b>Successfully added!</b>';
+      message.innerHTML = '<h3>Successfully added!</h3>';
       break;
     case 204: //recipe updated
-      message.innerHTML = '<b>Your recipe was updated!<b>';
+      message.innerHTML = '<h3>Your recipe was updated!</h3>';
     default: // any other status code
-      message.innerHTML = 'Error!';
+      message.innerHTML = '<h3>Error!</h3>';
       break;
   }
 
@@ -148,10 +148,9 @@ const handleResponse = async (response) => {
     const obj = await response.json();
     // If we have a message, display it.
     if (obj.message) {
-      message.innerHTML += `<p>${obj.message}</p>`;
+      message.innerHTML += `<b>${obj.message}</b>`;
     }
   }
-
 };
 
 window.onload = init;

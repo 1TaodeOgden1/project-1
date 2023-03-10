@@ -26,11 +26,11 @@ const serveFile = (response, file, contentType) => {
 
 const getHatImage = (request, response) => {
   serveFile(response, chefHat, 'image/png');
-}
+};
 
 const getKcthnBackground = (request, response) => {
   serveFile(response, ktchnBackground, 'image/jpg');
-}
+};
 
 const getIndex = (request, response) => {
   serveFile(response, recipeIndex, 'text/html');
@@ -78,5 +78,5 @@ module.exports = {
   getAdderJS,
   getAdderCSS,
   getHatImage,
-  getKcthnBackground
+  getKcthnBackground,
 };
